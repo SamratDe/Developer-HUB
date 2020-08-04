@@ -1,4 +1,0 @@
-{
-	"mongoURI": "mongodb+srv://developerhub:Samisami1010@developer-hub.vkb9u.mongodb.net/developerhub?retryWrites=true&w=majority",
-	"jwtSecret": "samratdedeveloperhubtoken"
-}
