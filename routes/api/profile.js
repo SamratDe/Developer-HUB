@@ -1,6 +1,7 @@
 const express = require('express')
 const config = require('config')
 const { body, validationResult } = require('express-validator')
+const axios = require('axios')
 
 const Profile = require('../../models/Profile')
 const User = require('../../models/User')
@@ -52,6 +53,26 @@ router.get('/user/:user_id', async (req, res) => {
 		console.error(err.message)
 		if (err.kind === 'ObjectId') {
 			return res.status(400).json({ msg: 'Profile not found' })
+		}
+		res.status(500).send('Server Error')
+	}
+})
+
+router.get('/github/:username', async (req, res) => {
+	try {
+		const uri = encodeURI(
+			`https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc`
+		)
+		const headers = {
+			'user-agent': 'node.js',
+			Authorization: `token ${config.get('githubToken')}`,
+		}
+		const gitHubResponse = await axios.get(uri, { headers })
+		res.json(gitHubResponse.data)
+	} catch (err) {
+		console.error(err.message)
+		if (err.response.status === 404) {
+			return res.status(404).json({ msg: 'No GitHub profile found' })
 		}
 		res.status(500).send('Server Error')
 	}
