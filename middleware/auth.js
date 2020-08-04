@@ -14,6 +14,6 @@ module.exports = function (req, res, next) {
 		next()
 	} catch (err) {
 		console.error('something wrong with auth middleware')
-		res.status(401).json({ msg: 'Server Error' })
+		res.status(401).json({ msg: 'Authorization Expired or Server Error' })
 	}
 }
