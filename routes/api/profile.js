@@ -23,7 +23,7 @@ router.get('/me', auth, async (req, res) => {
 		res.json(profile)
 	} catch (err) {
 		console.error(err.message)
-		res.status(500).send('Server Error')
+		res.status(500).json({ msg: 'Server Error' })
 	}
 })
 
@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
 		res.json(profiles)
 	} catch (err) {
 		console.error(err.message)
-		res.status(500).send('Server Error')
+		res.status(500).json({ msg: 'Server Error' })
 	}
 })
 
@@ -54,7 +54,7 @@ router.get('/user/:user_id', async (req, res) => {
 		if (err.kind === 'ObjectId') {
 			return res.status(400).json({ msg: 'Profile not found' })
 		}
-		res.status(500).send('Server Error')
+		res.status(500).json({ msg: 'Server Error' })
 	}
 })
 
@@ -74,7 +74,7 @@ router.get('/github/:username', async (req, res) => {
 		if (err.response.status === 404) {
 			return res.status(404).json({ msg: 'No GitHub profile found' })
 		}
-		res.status(500).send('Server Error')
+		res.status(500).json({ msg: 'Server Error' })
 	}
 })
 
@@ -144,7 +144,7 @@ router.post(
 			res.json(profile)
 		} catch (err) {
 			console.error(err.message)
-			res.status(500).send('Server Error')
+			res.status(500).json({ msg: 'Server Error' })
 		}
 	}
 )
@@ -193,7 +193,7 @@ router.put(
 			res.json(profile)
 		} catch (err) {
 			console.error(err.message)
-			res.status(500).send('Server Error')
+			res.status(500).json({ msg: 'Server Error' })
 		}
 	}
 )
@@ -243,7 +243,7 @@ router.put(
 			res.json(profile)
 		} catch (err) {
 			console.error(err.message)
-			res.status(500).send('Server Error')
+			res.status(500).json({ msg: 'Server Error' })
 		}
 	}
 )
@@ -255,7 +255,7 @@ router.delete('/', auth, async (req, res) => {
 		res.json({ msg: 'User Deleted' })
 	} catch (err) {
 		console.error(err.message)
-		res.status(500).send('Server Error')
+		res.status(500).json({ msg: 'Server Error' })
 	}
 })
 
@@ -271,7 +271,7 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
 		res.json(profile)
 	} catch (err) {
 		console.error(err.message)
-		res.status(500).send('Server Error')
+		res.status(500).json({ msg: 'Server Error' })
 	}
 })
 
@@ -287,7 +287,7 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
 		res.json(profile)
 	} catch (err) {
 		console.error(err.message)
-		res.status(500).send('Server Error')
+		res.status(500).json({ msg: 'Server Error' })
 	}
 })
 
