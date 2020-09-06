@@ -21,6 +21,64 @@ export const getCurrentProfile = () => async (dispatch) => {
 	}
 }
 
+export const getProfiles = () => async (dispatch) => {
+	dispatch({ type: actionTypes.CLEAR_PROFILE })
+
+	try {
+		const res = await axios.get('/api/profile')
+		dispatch({
+			type: actionTypes.GET_PROFILES,
+			payload: res.data,
+		})
+	} catch (err) {
+		dispatch({
+			type: actionTypes.PROFILE_ERROR,
+			payload: {
+				msg: err.response.statusText,
+				status: err.response.status,
+			},
+		})
+	}
+}
+
+export const getProfileById = (userId) => async (dispatch) => {
+	dispatch({ type: actionTypes.CLEAR_PROFILE })
+
+	try {
+		const res = await axios.get(`/api/profile/user/${userId}`)
+		dispatch({
+			type: actionTypes.GET_PROFILE,
+			payload: res.data,
+		})
+	} catch (err) {
+		dispatch({
+			type: actionTypes.PROFILE_ERROR,
+			payload: {
+				msg: err.response.statusText,
+				status: err.response.status,
+			},
+		})
+	}
+}
+
+export const getGithubRepos = (username) => async (dispatch) => {
+	try {
+		const res = await axios.get(`/api/profile/github/${username}`)
+		dispatch({
+			type: actionTypes.GET_GITHUB_REPOS,
+			payload: res.data,
+		})
+	} catch (err) {
+		dispatch({
+			type: actionTypes.PROFILE_ERROR,
+			payload: {
+				msg: err.response.statusText,
+				status: err.response.status,
+			},
+		})
+	}
+}
+
 export const createProfile = (formData, history, edit = false) => async (
 	dispatch
 ) => {
@@ -160,7 +218,7 @@ export const deleteEducation = (id) => async (dispatch) => {
 export const deleteAccount = () => async (dispatch) => {
 	if (window.confirm('Are You sure ? This CANNOT be undone !')) {
 		try {
-			const res = await axios.delete('/api/profile')
+			await axios.delete('/api/profile')
 			dispatch({ type: actionTypes.CLEAR_PROFILE })
 			dispatch({ type: actionTypes.DELETE_ACCOUNT })
 			dispatch(setAlert('Your Account is Deleted'))

@@ -17,6 +17,18 @@ export default function (state = intialState, action) {
 				profile: action.payload,
 				loading: false,
 			}
+		case actionTypes.GET_PROFILES:
+			return {
+				...state,
+				profiles: action.payload,
+				loading: false,
+			}
+		case actionTypes.GET_GITHUB_REPOS:
+			return {
+				...state,
+				repos: action.payload,
+				loading: false,
+			}
 		case actionTypes.CLEAR_PROFILE:
 			return {
 				...state,
@@ -29,6 +41,7 @@ export default function (state = intialState, action) {
 				...state,
 				error: action.payload,
 				loading: false,
+				profile: null,
 			}
 		default:
 			return state
