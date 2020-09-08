@@ -92,7 +92,7 @@ router.put('/like/:id', auth, async (req, res) => {
 		}
 		post.likes.unshift({ user: req.user.id })
 		await post.save()
-		return res.json(post.likes)
+		return res.send(post.likes)
 	} catch (err) {
 		console.error(err.message)
 		res.status(500).send('Server Error')
@@ -117,7 +117,7 @@ router.put('/unlike/:id', auth, async (req, res) => {
 			.indexOf(req.user.id)
 		post.likes.splice(removeIndex, 1)
 		await post.save()
-		res.json(post.likes)
+		res.send(post.likes)
 	} catch (err) {
 		console.error(err.message)
 		res.status(500).send('Server Error')
